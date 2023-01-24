@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvQrInfoExtra"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="@color/grey"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvQrInfoTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvQrInfoTitle" />
+
+    <TextView
+        android:id="@+id/tvQrInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/grey"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvQrInfoContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textColor="@color/grey"
+        app:layout_constraintEnd_toStartOf="@+id/ivQrInfoAction"
+        app:layout_constraintStart_toStartOf="@+id/tvQrInfoExtra"
+        app:layout_constraintTop_toBottomOf="@+id/tvQrInfoExtra" />
+
+    <ImageView
+        android:id="@+id/ivQrInfoAction"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvQrInfoContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvQrInfoContent"
+        app:srcCompat="@drawable/ic_baseline_launch_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

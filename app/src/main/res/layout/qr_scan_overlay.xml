@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvQrScanTop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TextView"
+        tools:textColor="@color/black" />
+
+
+    <View
+        android:id="@+id/qrScanLoadingIndicator"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:background="@drawable/gradient_camera_overlay"
+        app:layout_constraintEnd_toEndOf="@+id/ivQrScanFrame"
+        app:layout_constraintStart_toStartOf="@+id/ivQrScanFrame"
+        app:layout_constraintTop_toTopOf="@+id/ivQrScanFrame" />
+
+    <com.linhnvt.qrgenerator.base.widget.PointingView
+        android:id="@+id/cvQrScanPointer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/ivQrScanFrame"
+        app:layout_constraintStart_toStartOf="@+id/ivQrScanFrame"
+        app:layout_constraintTop_toTopOf="@+id/ivQrScanFrame" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvQrScanFlip"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        app:cardCornerRadius="35dp"
+        app:contentPadding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivQrScanFlip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_baseline_flip_24" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ivQrScanFrame"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="#00FFFFFF"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.502"
+        app:srcCompat="@drawable/frame" />
+
+    <ImageView
+        android:id="@+id/ivReview"
+        android:layout_width="120dp"
+        android:layout_height="133dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+</androidx.constraintlayout.widget.ConstraintLayout>
