@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "55581512757",
+    "project_id": "qrgenerator-ecce7",
+    "storage_bucket": "qrgenerator-ecce7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55581512757:android:4aaf76242c71b2289b8d7c",
+        "android_client_info": {
+          "package_name": "com.linhnvt.qrgenerator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55581512757-e02bh6pdhsvrg85n0fp8idhcpv1mmp4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBckmRRp69XjX0SbsBxQ_9rVgAo1SkmxZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55581512757-e02bh6pdhsvrg85n0fp8idhcpv1mmp4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

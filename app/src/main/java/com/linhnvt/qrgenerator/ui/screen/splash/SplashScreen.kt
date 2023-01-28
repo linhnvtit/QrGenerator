@@ -6,24 +6,23 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.MobileAds
 import com.linhnvt.qrgenerator.MainActivity
-import com.linhnvt.qrgenerator.R
-import com.linhnvt.qrgenerator.base.BaseFragment
+import com.linhnvt.qrgenerator.api.RetrofitHelper
 import com.linhnvt.qrgenerator.databinding.SplashScreenBinding
-import com.linhnvt.qrgenerator.ui.screen.home.HomeScreen
+import com.linhnvt.qrgenerator.util.Info
 import kotlinx.coroutines.*
+import retrofit2.Retrofit
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
     private lateinit var binding: SplashScreenBinding
+
+    private var doneFirstAnimation = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +32,13 @@ class SplashScreen : AppCompatActivity() {
         binding = SplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        MobileAds.initialize(this) { }
+
         // set up some animation for splash screen
         setupAnimation()
 
-        // start main activity
-        startMainActivity(2500)
+        // fetching app manifest data
+        fetchManifestSetting()
     }
 
     private fun requestFullScreen() {
@@ -67,6 +68,8 @@ class SplashScreen : AppCompatActivity() {
                 override fun onAnimationStart(p0: Animator) {}
 
                 override fun onAnimationEnd(p0: Animator) {
+                    startMainActivity()
+                    doneFirstAnimation = true
                     removeAllListeners()
                 }
 
@@ -79,15 +82,25 @@ class SplashScreen : AppCompatActivity() {
         }
     }
 
-    private fun startMainActivity(delay: Long) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            val i = Intent(
-                this@SplashScreen,
-                MainActivity::class.java
-            )
-            startActivity(i)
-            finish()
-        }, delay)
+    private fun fetchManifestSetting() {
+        lifecycleScope.launch(Dispatchers.Default) {
+            val manifest = RetrofitHelper.getManifestService().getAppManifest()
+            Info.updateManifest(manifest.body())
+
+            if (doneFirstAnimation)
+                launch(Dispatchers.Main) {
+                    startMainActivity()
+                }
+        }
+    }
+
+    private fun startMainActivity() {
+        val i = Intent(
+            this@SplashScreen,
+            MainActivity::class.java
+        )
+        startActivity(i)
+        finish()
     }
 
 }

@@ -16,4 +16,9 @@ object Constant {
     const val HTTPS_PREFIX = "https://"
     const val HTTP_PREFIX = "http://"
     const val COPY_SUCCESSFUL = "Copy successful"
+    const val GA_SCREEN = "screen"
+    const val GA_SCREEN_NAME = "screen_name"
+    const val GA_DEVICE_INFO = "device_info"
+    const val OS_VERSION = "os.version"
+    const val FEATURE_NOT_AVAILABLE = "This feature is not available now!"
 }

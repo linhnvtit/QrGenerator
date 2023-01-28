@@ -2,7 +2,6 @@ package com.linhnvt.qrgenerator.util
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.linhnvt.qrgenerator.R
 
@@ -12,7 +11,8 @@ fun AppCompatActivity.navigateToScreen(
     tag: String,
     type: ScreenAnimation,
     shouldReplacePriorFragment: Boolean,
-    shouldAddToBackStack: Boolean
+    shouldAddToBackStack: Boolean,
+    resId: Int = R.id.menu_fragment
 ) {
     val animArr = when (type) {
         ScreenAnimation.SLIDE_RIGHT_TO_LEFT ->
@@ -43,9 +43,9 @@ fun AppCompatActivity.navigateToScreen(
         hide(fromFragment)
         apply {
             if (shouldReplacePriorFragment)
-                replace(R.id.menu_fragment, toFragment, tag)
+                replace(resId, toFragment, tag)
             else
-                add(R.id.menu_fragment, toFragment, tag)
+                add(resId, toFragment, tag)
         }
         addToBackStack(tag)
     }

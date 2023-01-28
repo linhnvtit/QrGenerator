@@ -1,17 +1,23 @@
 package com.linhnvt.qrgenerator.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.linhnvt.qrgenerator.R
 import com.linhnvt.qrgenerator.databinding.FragmentBaseLayoutBinding
+import com.linhnvt.qrgenerator.tracking.Analytic
+import com.linhnvt.qrgenerator.ui.screen.history.HistoryScreen
+import com.linhnvt.qrgenerator.ui.screen.qrscan.QrScanScreen
 import com.linhnvt.qrgenerator.ui.viewpager.ViewPagerFragment
 import com.linhnvt.qrgenerator.util.Constant
+import com.linhnvt.qrgenerator.util.Info
 import com.linhnvt.qrgenerator.util.ScreenAnimation
 import com.linhnvt.qrgenerator.util.navigateToScreen
 
@@ -74,6 +80,8 @@ abstract class BaseFragment<out T : ViewBinding> : Fragment() {
         initView(view, savedInstanceState)
         initData()
         initAction()
+        sendGA()
+        logGA()
     }
 
     override fun onDestroyView() {
@@ -96,10 +104,21 @@ abstract class BaseFragment<out T : ViewBinding> : Fragment() {
         }
     }
 
+    private fun sendGA() {
+        Analytic.getInstance().logEvent(Constant.GA_SCREEN, Bundle().apply {
+            putString(Constant.GA_SCREEN_NAME, this::class.java.name)
+            putString(Constant.GA_DEVICE_INFO, Info.getAnalyticInfo())
+        })
+    }
+
+    private fun logGA() {
+        Log.i(this::class.java.name, Info.getAnalyticInfo())
+    }
+
     /**
      * go back to previous fragment
      */
-    fun goBack() {
+    private fun goBack() {
         activity?.onBackPressed()
     }
 
@@ -137,14 +156,26 @@ abstract class BaseFragment<out T : ViewBinding> : Fragment() {
         shouldAddToBackStack: Boolean = true,
         fromFragment: Fragment = this,
     ) {
-        (activity as? AppCompatActivity)?.navigateToScreen(
-            fromFragment,
-            fragment,
-            tag,
-            type,
-            shouldReplacePriorFragment,
-            shouldAddToBackStack
-        )
+        if (navigationInterceptorCheck(fragment::class.java.name))
+            Toast.makeText(context, Constant.FEATURE_NOT_AVAILABLE, Toast.LENGTH_SHORT).show()
+        else
+            (activity as? AppCompatActivity)?.navigateToScreen(
+                fromFragment,
+                fragment,
+                tag,
+                type,
+                shouldReplacePriorFragment,
+                shouldAddToBackStack
+            )
+    }
+
+    private fun navigationInterceptorCheck(fragmentName: String): Boolean {
+        Info.getAppManifest()?.let {
+            return (!it.enableHistory && fragmentName == HistoryScreen::class.java.name) ||
+                    (!it.enableQrScan && fragmentName == QrScanScreen::class.java.name)
+        }
+
+        return false
     }
 
     /**
