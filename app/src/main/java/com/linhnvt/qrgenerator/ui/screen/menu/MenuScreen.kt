@@ -69,6 +69,10 @@ class MenuScreen : BaseFragment<MenuScreenBinding>() {
             hideLeftIcon(hide = true)
         }
 
+//        setUpAds()
+    }
+
+    private fun setUpAds() {
         val builder = AdLoader.Builder(
             this@MenuScreen.requireContext(),
             "ca-app-pub-3940256099942544/2247696110"
@@ -102,7 +106,7 @@ class MenuScreen : BaseFragment<MenuScreenBinding>() {
             adViewBinding.adView.advertiserView =
                 adViewBinding.adView.findViewById(R.id.ad_advertiser)
             Log.i(
-                "TLTL",
+                TAG,
                 "${adViewBinding.adHeadline} ${adViewBinding.adView}"
             )
             val xx = adViewBinding
@@ -175,7 +179,7 @@ class MenuScreen : BaseFragment<MenuScreenBinding>() {
             // Updates the UI to say whether or not this ad has a video asset.
             if (vc?.hasVideoContent() == true) {
                 Log.i(
-                    "TLTL",
+                    TAG,
                     "Video status: Ad contains a %.2f:1 video asset.",
                 )
 
@@ -187,12 +191,12 @@ class MenuScreen : BaseFragment<MenuScreenBinding>() {
                         override fun onVideoEnd() {
                             // Publishers should allow native ads to complete video playback before
                             // refreshing or replacing them with another ad in the same UI location.
-                            Log.i("TLTL", "Video status: Video playback has ended.")
+                            Log.i(TAG, "Video status: Video playback has ended.")
                             super.onVideoEnd()
                         }
                     }
             } else {
-                Log.i("TLTL", "Video status: Ad does not contain a video asset.")
+                Log.i(TAG, "Video status: Ad does not contain a video asset.")
             }
 
 
@@ -217,7 +221,7 @@ class MenuScreen : BaseFragment<MenuScreenBinding>() {
                            domain: ${loadAdError.domain}, code: ${loadAdError.code}, message: ${loadAdError.message}
                     """"
                 Log.i(
-                    "TLTL", "Failed to load native ad with error $error",
+                    TAG, "Failed to load native ad with error $error",
                 )
             }
         }).build()

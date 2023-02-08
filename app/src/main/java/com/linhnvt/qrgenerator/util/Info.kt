@@ -8,7 +8,7 @@ object Info {
     private lateinit var deviceName: String
     private lateinit var deviceModel: String
     private lateinit var deviceProduct: String
-    private var manifest: Manifest? = null
+    private var manifest: Manifest = Manifest(enableQrScan = true, enableHistory = true)
 
     fun initialize() {
         osVersion = System.getProperty(Constant.OS_VERSION) ?: Constant.EMPTY
@@ -22,7 +22,7 @@ object Info {
         return "$osVersion $osApiLevel : $deviceName $deviceModel $deviceProduct"
     }
 
-    fun updateManifest(manifest: Manifest?) = manifest.also { this.manifest = it }
+    fun updateManifest(manifest: Manifest?) = manifest?.also { this.manifest = it }
 
     fun getAppManifest() = manifest
 }

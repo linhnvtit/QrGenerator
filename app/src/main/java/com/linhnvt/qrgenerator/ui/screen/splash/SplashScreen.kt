@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -84,13 +85,18 @@ class SplashScreen : AppCompatActivity() {
 
     private fun fetchManifestSetting() {
         lifecycleScope.launch(Dispatchers.Default) {
-            val manifest = RetrofitHelper.getManifestService().getAppManifest()
-            Info.updateManifest(manifest.body())
+            try {
+                val manifest = RetrofitHelper.getManifestService().getAppManifest()
+                Info.updateManifest(manifest.body())
+            } catch (e: Exception) {
+                Log.e("TLTL", "${e.message}")
+            } finally {
+                if (doneFirstAnimation)
+                    launch(Dispatchers.Main) {
+                        startMainActivity()
+                    }
+            }
 
-            if (doneFirstAnimation)
-                launch(Dispatchers.Main) {
-                    startMainActivity()
-                }
         }
     }
 

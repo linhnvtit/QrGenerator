@@ -22,13 +22,16 @@ import com.linhnvt.qrgenerator.util.ScreenAnimation
 import com.linhnvt.qrgenerator.util.navigateToScreen
 
 abstract class BaseFragment<out T : ViewBinding> : Fragment() {
+    companion object {
+        val TAG: String = this::class.java.name
+    }
+
     /**
      * binding for fragment that inherit from this. It just a frame layout in base layout
      */
     private var _binding: T? = null
     protected val binding: T
         get() = _binding ?: throw IllegalStateException(Constant.BINDING_INVALID_WARNING)
-
 
     /**
      * binding for base fragment
@@ -112,7 +115,7 @@ abstract class BaseFragment<out T : ViewBinding> : Fragment() {
     }
 
     private fun logGA() {
-        Log.i(this::class.java.name, Info.getAnalyticInfo())
+        Log.i(TAG, Info.getAnalyticInfo())
     }
 
     /**
